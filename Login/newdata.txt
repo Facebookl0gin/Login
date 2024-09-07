@@ -1,0 +1,15 @@
+
+name: Your Workflow Name
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Your Build Step
+        run: echo "Build steps here"
